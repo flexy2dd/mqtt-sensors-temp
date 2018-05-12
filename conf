@@ -1,0 +1,6 @@
+[MQTT] 
+clientID=piscine 
+user= 
+passwd= 
+host=shield-ds.local
+port=1883
