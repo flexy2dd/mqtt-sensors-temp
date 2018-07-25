@@ -12,7 +12,7 @@ import paho.mqtt.client as mqtt
 config = ConfigParser.ConfigParser()
 config.read('/opt/mqtt-sensors-temp/conf')
 
-responseTopic = 'sensors/swimmingpool/response/'
+responseTopic = 'sensors/temperature/'
 
 def getPoolTemp():
     with open ('/var/1w_files/28-0000066e633b', "r") as poolFile:
@@ -57,10 +57,10 @@ mqttc.connect(config.get('MQTT', 'host'), port=int(config.get('MQTT', 'port')), 
 
 mqttc.loop_start()
 
-infoOutdoor = mqttc.publish((responseTopic + 'temp-outdoor'), payload=getOutdoorTemp(), qos=0, retain=True)
+infoOutdoor = mqttc.publish((responseTopic + 'outdoor'), payload=getOutdoorTemp(), qos=0, retain=True)
 infoOutdoor.wait_for_publish()
 
-infoPool = mqttc.publish((responseTopic + 'temp-pool'), payload=getPoolTemp(), qos=0, retain=True)
+infoPool = mqttc.publish((responseTopic + 'sunlight'), payload=getPoolTemp(), qos=0, retain=True)
 infoPool.wait_for_publish()
 
 # End
