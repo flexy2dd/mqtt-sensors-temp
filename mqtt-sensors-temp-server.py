@@ -11,8 +11,8 @@ import paho.mqtt.client as mqtt
 config = ConfigParser.ConfigParser()
 config.read('conf')
 
-requestTopic  = 'sensors/swimmingpool/+'        # Request comes in here. Note wildcard.
-responseTopic = 'sensors/swimmingpool/response/'        # Response goes here. Request ID will be appended later
+requestTopic  = 'sensors/temperature/+'        # Request comes in here. Note wildcard.
+responseTopic = 'sensors/temperature/'        # Response goes here. Request ID will be appended later
 
 def getPoolTemp():
     with open ('/var/1w_files/28-0000066e633b', "r") as poolFile:
@@ -47,10 +47,10 @@ def onMessage(client, userdata, message):
 
    print("Received a time request on topic " + requestTopic + ".")
 
-   if requestID=='temp-pool':
+   if requestID=='outdoor':
        client.publish((responseTopic + requestID), payload=getPoolTemp(), qos=0, retain=False) # Publish the time to the response topic
 
-   if requestID=='temp-outdoor':
+   if requestID=='outdoor2':
        client.publish((responseTopic + requestID), payload=getOutdoorTemp(), qos=0, retain=False) # Publish the time to the response topic
 
 #
